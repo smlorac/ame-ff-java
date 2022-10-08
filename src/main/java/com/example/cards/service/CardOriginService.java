@@ -8,20 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class CardOriginService {
 
-    private final CardOriginRepository repository;
+    private final CardOriginRepository cardOriginRepository;
 
     @Autowired
-    public CardOriginService(CardOriginRepository repository) {
-        this.repository = repository;
+    public CardOriginService(CardOriginRepository cardOriginRepository) {
+        this.cardOriginRepository = cardOriginRepository;
     }
 
     public CardOrigin findById(int id){
-        return repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Card origin id ["+ id + "] não foi encontrado"));
+        return this.cardOriginRepository.findById((long) id)
+                .orElseThrow(() -> new EntityNotFoundException("Card origin id [ "+id+" not found]"));
     }
 
     public CardOrigin createCardOrigin(CardOriginRequest cardOriginRequest){
@@ -34,7 +35,27 @@ public class CardOriginService {
         cardOrigin.setCreatedAt(LocalDateTime.now());
         cardOrigin.setUpdatedAt(LocalDateTime.now());
 
-        return repository.save(cardOrigin);
+        return cardOriginRepository.save(cardOrigin);
+    }
+
+    public List<CardOrigin> listAll(){
+        return this.cardOriginRepository.findAll();
+    }
+
+    public CardOrigin update(long id, CardOriginRequest request){
+        var cardOrigin = this.findById((int) id);
+
+        cardOrigin.setName(request.getName());
+        cardOrigin.setDescription(request.getDescription());
+        cardOrigin.setCreator(request.getCreator());
+        cardOrigin.setUpdatedAt(LocalDateTime.now());
+
+        return cardOriginRepository.save(cardOrigin);
+    }
+
+    public void delete(int id){
+        var cardOrigin = this.findById(id);
+        cardOriginRepository.delete(cardOrigin);
     }
 
 }

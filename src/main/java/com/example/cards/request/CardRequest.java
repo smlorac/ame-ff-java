@@ -1,5 +1,7 @@
 package com.example.cards.request;
 
+import com.example.cards.model.CardOrigin;
+
 public class CardRequest {
 
     private long id;
@@ -11,6 +13,15 @@ public class CardRequest {
     private int gear;
     private int intellect;
     private int skill;
+    private int originId;
+
+    public int getOriginId() {
+        return originId;
+    }
+
+    public void setOriginId(int originId) {
+        this.originId = originId;
+    }
 
     public int getSkill() {
         return skill;
@@ -83,4 +94,6 @@ public class CardRequest {
     public void setIntellect(int intellect) {
         this.intellect = intellect;
     }
+
+
 }

@@ -1,9 +1,13 @@
 package com.example.cards.model;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
 public class Card {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
     private String description;
@@ -15,6 +19,10 @@ public class Card {
     private int skill;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "origin_id")
+    private CardOrigin origin;
 
     public long getId() {
         return id;
@@ -102,5 +110,13 @@ public class Card {
 
     public void setSkill(int skill) {
         this.skill = skill;
+    }
+
+    public CardOrigin getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(CardOrigin origin) {
+        this.origin = origin;
     }
 }
