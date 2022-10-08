@@ -16,6 +16,8 @@ public class Card {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    private CardOrigin origin;
+
     public long getId() {
         return id;
     }
@@ -102,5 +104,13 @@ public class Card {
 
     public void setSkill(int skill) {
         this.skill = skill;
+    }
+
+    public CardOrigin getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(CardOrigin origin) {
+        this.origin = origin;
     }
 }
